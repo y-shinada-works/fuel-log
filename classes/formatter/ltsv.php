@@ -42,15 +42,15 @@ class Formatter_Ltsv extends \Monolog\Formatter\NormalizerFormatter
         $output  = $this->format;
         $outputs = [];
         foreach ($record_rows['extra'] as $extra_label => $val) {
-            if (false !== in_array("%extra.${var}%", $output)) {
-                $idx           = array_search("%extra.${var}%", $this->format);
+            if (false !== in_array("%extra.${extra_label}%", $output)) {
+                $idx           = array_search("%extra.${extra_label}%", $this->format);
                 $outputs[$idx] = $extra_label.':'.$this->convert_string($val);
                 unset($record_rows['extra'][$extra_label]);
             }
         }
 
         foreach ($record_rows as $label => $val) {
-            $idx = array_search("%${var}%", $this->format);
+            $idx = array_search("%${label}%", $this->format);
             if ($idx !== false) {
                 $outputs[$idx] = $label.':'.$this->convert_string($val);
             }
